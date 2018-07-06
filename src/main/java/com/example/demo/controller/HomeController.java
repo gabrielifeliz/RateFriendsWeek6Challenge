@@ -1,6 +1,13 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 import com.cloudinary.utils.ObjectUtils;
+import com.example.demo.model.AppRole;
+import com.example.demo.model.AppUser;
+import com.example.demo.model.Friend;
+import com.example.demo.configuration.CloudinaryConfig;
+import com.example.demo.repository.AppRoleRepository;
+import com.example.demo.repository.AppUserRepository;
+import com.example.demo.repository.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -21,6 +29,17 @@ public class HomeController {
 
     @Autowired
     CloudinaryConfig cloudc;
+
+    @Autowired
+    AppRoleRepository roles;
+
+    @Autowired
+    AppUserRepository users;
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @RequestMapping("/")
     public String displayHome(Model model) {
@@ -95,6 +114,24 @@ public class HomeController {
         model.addAttribute("friends",
                 friendRepository.findAllByNameContainingIgnoreCase(searchString));
         return "index";
+    }
+
+    @PostConstruct
+    public void loadData(){
+
+        AppRole student = new AppRole("STUDENT");
+        roles.save(student);
+
+        AppRole teacher = new AppRole("TEACHER");
+        roles.save(teacher);
+
+        AppUser studentLogin = new AppUser("student", "pwstudent");
+        studentLogin.addRole(student);
+        users.save(studentLogin);
+
+        AppUser teacherLogin = new AppUser("teacher", "pwteacher");
+        teacherLogin.addRole(teacher);
+        users.save(teacherLogin);
     }
 
     /*@GetMapping("/register")
