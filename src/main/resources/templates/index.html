@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="base :: csslinks"> </th:block>
+    <title>Friends' List - Home Page</title>
+</head>
+
+<body>
+<nav th:replace="base :: navbar"></nav>
+
+<div class="jumbotron jumbotron-fluid text-center">
+    <div class="jumbotron text-sm-center">
+        <h1 class = "display-1">Rate Your Friends!</h1><br/><br/>
+    </div>
+</div>
+<br/>
+<div class="container jumbotron" th:if="${search}!=null"
+     th:inline="text">You searched for [[${search}]]:</div>
+<div class="container" th:each="friend : ${friends}">
+    <div class="jumbotron">
+        <ul class="list-group">
+            <li class="list-group-item"><span th:text="${friend.name}"></span></li>
+            <li class="list-group-item"><span th:text="${friend.description}"></span></li>
+            <li class="list-group-item image-wrapper">
+                <img class="friend-image" th:src="${friend.imageCloudinary}"/>
+            </li>
+        </ul>
+        <br/><br/>
+        <a class="like" th:href="@{/like/{id}(id=${friend.id})}">
+            <i class="fa fa-thumbs-o-up"></i>
+        </a>
+        <a class="dislike" th:href="@{/dislike/{id}(id=${friend.id})}">
+            <i class="fa fa-thumbs-o-down"></i>
+        </a>
+        <br/>
+        <a>
+            <input class="qty1" name="qty1" readonly="readonly"
+                   type="text" th:value="${friend.rating}" />
+        </a>
+        <br/><br/>
+        <a th:href="@{/update/{id}(id=${friend.id})}" role="button">
+            <button class="btn btn-info btn-lg">Update</button></a><br /><br />
+
+        <a th:href="@{/delete/{id}(id=${friend.id})}" role="button">
+            <button class="btn btn-info btn-lg">Delete</button></a><br /><br />
+    </div>
+</div>
+<th:block th:replace="base :: jslinks"></th:block>
+</body>
+</html>

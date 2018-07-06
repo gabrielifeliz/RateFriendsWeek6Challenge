@@ -1,0 +1,75 @@
+body {
+    background-color: lightgrey;
+}
+
+.jumbotron-fluid
+{
+    background: url("/img/friends.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.text-sm-center {
+    border-radius: 10px;
+    background-color: cornsilk;
+    color: black;
+    padding: 5px;
+}
+
+.container {
+    background:rgba(255,255,255,0.9);
+}
+
+label {
+    font-weight: bold;
+}
+
+.friend-image {
+    width: 100%;
+    /* Images default to being inline, inline items cannot have a width, so change to block: */
+    display: block;
+    /* The following may be needed if there's still a wierd looking 2-3px gap at the bottom of the image in some browsers: */
+    vertical-align: bottom;
+}
+
+.like {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background: lightgreen;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border-radius: 4px;
+}
+
+.dislike {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: normal;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      background: lightcoral;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.428571429;
+      border-radius: 4px;
+}
+
+.qty1 {
+    border: none;
+    background: transparent;
+    color: black;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2em;
+    margin-top: 1em;
+    text-transform: uppercase;
+}
