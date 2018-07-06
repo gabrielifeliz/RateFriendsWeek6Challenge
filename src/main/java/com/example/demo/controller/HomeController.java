@@ -5,6 +5,7 @@ import com.example.demo.model.AppRole;
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Friend;
 import com.example.demo.configuration.CloudinaryConfig;
+import com.example.demo.model.UserService;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.repository.FriendRepository;
@@ -36,8 +37,31 @@ public class HomeController {
     @Autowired
     AppUserRepository users;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/login")
     public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String showRegistrationPage(Model model) {
+        model.addAttribute("user", new AppUser());
+        return "registration";
+    }
+
+    @PostMapping("/register")
+    public String processRegistrationPage(
+            @Valid @ModelAttribute("user") AppUser user,
+            BindingResult result, Model model) {
+        model.addAttribute("user", user);
+        if (result.hasErrors()) {
+            return "registration";
+        } else {
+            userService.saveUser(user);
+            model.addAttribute("message", "User Account Successfully Created");
+        }
         return "login";
     }
 
