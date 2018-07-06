@@ -27,14 +27,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/h2/**", "/register").permitAll()
-                .antMatchers("/**", "/css/**", "/js/**").permitAll()
+                .antMatchers("/", "/register", "/error").permitAll()
+                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/h2/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout").permitAll().permitAll();
+                    .logoutSuccessUrl("/login?logout").permitAll().permitAll();
 
         http.csrf().disable();
 

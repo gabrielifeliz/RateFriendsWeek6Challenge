@@ -143,38 +143,12 @@ public class HomeController {
     @PostConstruct
     public void loadData(){
 
-        AppRole student = new AppRole("STUDENT");
-        roles.save(student);
+        AppRole admin = new AppRole("ADMIN");
+        roles.save(admin);
 
-        AppRole teacher = new AppRole("TEACHER");
-        roles.save(teacher);
-
-        AppUser studentLogin = new AppUser("student", "pwstudent");
-        studentLogin.addRole(student);
+        AppUser studentLogin = new AppUser("admin", "admin");
+        studentLogin.addRole(admin);
         users.save(studentLogin);
 
-        AppUser teacherLogin = new AppUser("teacher", "pwteacher");
-        teacherLogin.addRole(teacher);
-        users.save(teacherLogin);
     }
-
-    /*@GetMapping("/register")
-    public String showRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
-    @PostMapping("/register")
-    public String processRegistrationPage(
-            @Valid @ModelAttribute("user") User user,
-            BindingResult result, Model model) {
-        model.addAttribute("user", user);
-        if (result.hasErrors()) {
-            return "registration";
-        } else {
-            userService.saveUser(user);
-            model.addAttribute("message", "User Account Successfully Created");
-        }
-        return "login";
-    }*/
 }
