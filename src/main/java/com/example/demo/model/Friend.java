@@ -1,10 +1,8 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @Entity
 public class Friend {
@@ -27,7 +25,6 @@ public class Friend {
     private int rating = 1;
 
     private String imageCloudinary;
-
 
     public long getId() {
         return id;
